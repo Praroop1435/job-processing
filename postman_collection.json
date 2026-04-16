@@ -1,0 +1,168 @@
+{
+	"info": {
+		"_postman_id": "job-processing-api-collection",
+		"name": "Job Processing API",
+		"description": "Collection for testing Task 1 (API Key & Rate Limiting) and Task 2 (Background Job Processing)",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Task 1: API Key & Rate Limiting",
+			"item": [
+				{
+					"name": "Generate API Key",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api-keys",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api-keys"
+							]
+						},
+						"description": "Generate a new unique API key"
+					},
+					"response": []
+				},
+				{
+					"name": "Access Secure Data",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-API-Key",
+								"value": "{{api_key}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/secure-data",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"secure-data"
+							]
+						},
+						"description": "Access protected data with rate limiting"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Task 2: Background Job Processing",
+			"item": [
+				{
+					"name": "Submit Job",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"task\": \"Process large dataset\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/jobs",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"jobs"
+							]
+						},
+						"description": "Submit a new background job"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Job Status",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/jobs/{{job_id}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"jobs",
+								"{{job_id}}"
+							]
+						},
+						"description": "Retrieve status of a background job"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Common",
+			"item": [
+				{
+					"name": "Health Check",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/health",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"health"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "http://127.0.0.1:8000",
+			"type": "string"
+		},
+		{
+			"key": "api_key",
+			"value": "your_api_key_here",
+			"type": "string"
+		},
+		{
+			"key": "job_id",
+			"value": "your_job_id_here",
+			"type": "string"
+		}
+	]
+}
